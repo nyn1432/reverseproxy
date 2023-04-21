@@ -1,0 +1,8 @@
+#Creating a file named `Dockerfile` with the following content:
+
+
+# Use the Nginx official image as the base image
+FROM nginx
+
+# Copy the Nginx configuration file from the host to the container
+COPY nginx.conf /etc/nginx/nginx.conf

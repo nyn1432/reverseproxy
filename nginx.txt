@@ -1,0 +1,14 @@
+#Enable log rotation for Nginx by creating a configuration file in '/etc/logrotate.d'
+
+/var/log/nginx/*.log {
+        daily
+        missingok
+        rotate 14
+        compress
+        delaycompress
+        notifempty
+        sharedscripts
+        postrotate
+                /etc/init.d/nginx reload > /dev/null
+        endscript
+}

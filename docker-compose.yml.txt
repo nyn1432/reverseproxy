@@ -1,0 +1,46 @@
+version: '3'
+services:
+    wordpress:
+        image: wordpress
+        restart: always
+        environment:
+            WORDPRESS_DB_HOST: db
+            WORDPRESS_DB_USER: exampleuser
+            WORDPRESS_DB_PASSWORD: examplepassword
+            WORDPRESS_DB_NAME: exampledb
+        volumes:
+            - wp_data:/var/www/html
+        networks:
+            - wpnet
+
+    nginx:
+        image: nginx
+        restart: always
+        ports:
+            - "80:80"
+        volumes:
+            - wp_data:/var/www/html
+            - nginx_config:/etc/nginx/conf.d
+        networks:
+            - wpnet
+
+    db:
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_DATABASE: exampledb
+            MYSQL_USER: exampleuser
+            MYSQL_PASSWORD: examplepassword
+            MYSQL_ROOT_PASSWORD: rootpassword
+        volumes:
+            - db_data:/var/lib/mysql
+        networks:
+            - wpnet
+
+volumes:
+    wp_data:
+    db_data:
+    nginx_config:
+
+networks:
+    wpnet:

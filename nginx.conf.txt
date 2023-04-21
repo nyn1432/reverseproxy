@@ -1,0 +1,16 @@
+# Configuring the virtual host settings
+server {
+    listen 80;
+    server_name example.com;
+
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://localhost:80;
+    }
+
+    location /wp-login.php {
+        allow 192.0.2.1;   #replace with the specific IP address       
+        deny all;
+    }
+}

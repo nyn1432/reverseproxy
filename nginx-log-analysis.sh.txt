@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#Date and Time of when the script was run
+echo "Date: `date +%D` Time: `date +%T`"
+
+#Total Number of Requests
+echo "Total Requests: `awk '{ print }' /var/log/nginx/*.log | grep "GET\|POST" | wc -l`"
+
+#Top 10 IPs with most requests
+echo "Top 10 IPs with most requests: `awk '{ print $1 }' /var/log/nginx/*.log | sort | uniq -c | sort -rn | head -10 | awk '{ print $2 "=" $1 }'`"
+
+#Top 10 URLs with most requests
+echo "Top 10 URLs with most requests: `awk '{ print $7 }' /var/log/nginx/*.log | sort | uniq -c | sort -rn | head -10 | awk '{ print $2 "=" $1 }'`"
